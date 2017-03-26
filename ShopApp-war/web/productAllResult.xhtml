@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h1>Products available in the catalogue </h1>
+        <h:form>
+            <input type="hidden" name="tokenPassCart" value="#{login.getToken()}" />
+            <h:commandButton action="#{addCartBean.checkout()}" 
+                                             value ="Checkout"/>
+                        <h:commandButton action="#{addCartBean.cancel()}" 
+                                             value ="Cancel"/>
+            <h:commandButton action="SearchPage" value="Back to Start"/>
+        </h:form><br /><br />
+        <h3>
+            <h:dataTable value="#{showProduct.getAllProducts()}" 
+                         var="product" border="1" cellpadding="10">
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                        #{product.description}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                        #{product.productId}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Cost ($)</f:facet>
+                        #{product.purchaseCost}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Quantity</f:facet>
+                        #{product.quantityOnHand}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Available</f:facet>
+                        #{product.available}
+                </h:column>
+                
+                <h:column>
+                    <f:facet name="header">Enter Quantity Required</f:facet>
+                    <h:form>
+                        <h:inputText value="#{addCartBean.quantityVar}">
+                                <f:validateLongRange minimum="0" maximum="100"/>
+                        </h:inputText>
+                        <h:commandButton value="Add To Cart" action="#{addCartBean.addToBasket(product.description, addCartBean.quantityVar)}" disabled="#{not product.available}"></h:commandButton>
+                    </h:form>    
+                </h:column>
+                        
+                <h:column>
+                    <f:facet name="header">Enter Quantity To Remove</f:facet>
+                        <h:form>
+                        <h:inputText value="#{addCartBean.quantityVar1}">
+                                <f:validateLongRange minimum="0" maximum="100"/>
+                        </h:inputText>
+                                    <h:commandButton action="#{addCartBean.removeFromBasket(product.description, addCartBean.quantityVar1)}" value ="Remove from Basket"/>
+                        </h:form>    
+                </h:column>
+                       
+            </h:dataTable>
+            
+        </h3>
+        <br/><br/>    
+        
+    </h:body>
+</html>
+
