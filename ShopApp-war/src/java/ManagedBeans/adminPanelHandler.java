@@ -2,6 +2,7 @@ package ManagedBeans;
 
 import LoginPackage.SessionBean;
 import beans.productBeanLocal;
+import java.util.HashMap;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -28,9 +29,6 @@ public class adminPanelHandler {
     @EJB
     private productBeanLocal productBean;
 
-    /**
-     * Creates a new instance of adminPanelHandler
-     */
      public String getActionMessage() {
         return actionMessage;
     }
@@ -69,11 +67,11 @@ public class adminPanelHandler {
        String userType=SessionBean.getUserType();
        if(sessionToken.equalsIgnoreCase(passedToken) && userType.equalsIgnoreCase("admin") )//match the tokens if the tokens do not match thats mean the form  comings from a mirror site and denie accses
        {
-         this.productTitle= post.escapeString(this.productTitle);
-         this.productQuantity=post.escapeString(this.productQuantity);
-         this.cost=post.escapeString(this.cost);
-       productBean.addProduct(this.productTitle, this.productQuantity,this.cost);//call a method from injected Bean 
-       this.actionMessage="Product: "+this.productTitle+" Quantity:"+this.productQuantity+" Succsefuly added to DB";
+            this.productTitle= post.escapeString(this.productTitle);
+            this.productQuantity=post.escapeString(this.productQuantity);
+            this.cost=post.escapeString(this.cost);
+            productBean.addProduct(this.productTitle, this.productQuantity,this.cost);//call a method from injected Bean 
+            this.actionMessage="Product: "+this.productTitle+" Quantity:"+this.productQuantity+" Succsefuly added to DB";
        }
        else 
            post.postRedirect("./error.xhtml");//if missmathc in the tokens redirect do error page and accses is forbiden
@@ -156,7 +154,5 @@ public class adminPanelHandler {
     }
     public adminPanelHandler()
     {
-      //  productBean.addProduct(productTitle, productQuantity);
     }
-    
 }

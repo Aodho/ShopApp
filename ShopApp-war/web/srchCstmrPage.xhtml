@@ -11,22 +11,15 @@
             <h:panelGrid columns="2">
                 
                 Enter customer name: 
-                <h:inputText value="#{showCustomer.custName}"/>
+                <h:inputText value="#{userBean.username}"/>
                 <br/>
                 <h:commandButton action="customerNameResult" value="Show by customer name"/>
                 Enter customer ID: 
-                <h:inputText value="#{showCustomer.custID}"/>
+                <h:inputText value="#{userBean.uid}"/>
                 <br/>
                 <h:commandButton action="customerIdResult" value="Show by customer ID"/>
-                
-                <br/>
-                See all customers 
-                <br/>
-                <h:commandButton action="customerAllResult" value="Show all customers"/>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
+                <br />
+                <br />
                 <h:commandButton action="admin" value="Back"/>
                 
             </h:panelGrid>

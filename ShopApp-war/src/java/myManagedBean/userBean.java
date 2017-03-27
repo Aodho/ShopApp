@@ -1,16 +1,13 @@
 package myManagedBean;
 
+import Ent.G13USERS;
 import beans.NewUserBeanLocal;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.Resource;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
 
 @Named(value = "userBean")
 @RequestScoped
@@ -20,18 +17,18 @@ public class userBean implements Serializable {
     private NewUserBeanLocal newUserBean;
 
     //attributes of user table
-    private int uid;
+    private long uid;
     private String username;
     private String password;
     private String address;
     private String usertype;
     private String message;
     
-    public int getUid() {
+    public long getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(long uid) {
         this.uid = uid;
     }
 
@@ -88,16 +85,24 @@ public class userBean implements Serializable {
      else
          return false;
     }
+    
     public void initialize()
     {
-      int id;
-      id = newUserBean.createUser("joe","1D10T?","Castletroy, Limerick","customer","Hello I am a cutomer here !");
-      System.out.println("ID : "+id);
-      id = newUserBean.createUser("toor","4uIdoO!","Limerick City","admin","Hi I am Admin"); 
-      System.out.println("ID : "+id);
+     if(!isUserExist())
+     {
+       int id;
+       id = newUserBean.createUser("joe","1D10T?","Castletroy, Limerick","customer","Hello, My name is Joe");
+       id = newUserBean.createUser("ankit","1D10T?","Castletroy, Limerick","customer","Hello, My name is Ankit");
+       id = newUserBean.createUser("josh","1D10T?","Castletroy, Limerick","customer","Hello, My name is Josh");
+       id = newUserBean.createUser("emmylou","1D10T?","Castletroy, Limerick","customer","Hello, My name is Emmylou");
+       id = newUserBean.createUser("vishrut","1D10T?","Castletroy, Limerick","customer","Hello, My name is Vishrut");
+       id = newUserBean.createUser("toor","4uIdo0!","Limerick City","admin","Hello, My name is Toor and I'm admin here."); 
+     }
+     
     }
+
     public userBean() {
-        uid = 0;
+        
     }
 
     public String notification() {
@@ -105,4 +110,29 @@ public class userBean implements Serializable {
         else return "New user with id " + uid + " created!!!";
     }
     
+    public List<G13USERS> getCurrentUserDetail(long uid)
+    {
+      List<G13USERS> uList = newUserBean.getCurrentUserDetails(uid);
+      return uList;
+    }
+    
+    public List<G13USERS> getCustomerListByName(String name)
+    {
+     List<G13USERS> uList = newUserBean.getCustomerListByName(name);
+      return uList;
+    }
+    
+    public List<G13USERS> getCustomerListByID(long id)
+    {
+     List<G13USERS> uList = newUserBean.getCustomerListByID(id);
+      return uList;
+    }
+    public void setCurrentUserDetail(long uid)
+    {
+      List<G13USERS> uList = newUserBean.getCurrentUserDetails(uid);
+      this.uid = uList.get(0).getId();
+      this.username = uList.get(0).getUsername();
+      this.address = uList.get(0).getAddress();
+      this.message = uList.get(0).getMessage();
+    }
 }

@@ -2,10 +2,13 @@ package myManagedBean;
 
 
 import Ent.Product;
+import beans.productBeanLocal;
+import beans.NewUserBeanLocal;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.naming.Context;
@@ -14,6 +17,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
+
 
 @Named(value = "showProduct")
 @RequestScoped
@@ -26,8 +30,10 @@ public class showProduct {
     private javax.transaction.UserTransaction utx;
     
     private String productName;
-   
     private int productId;
+    
+    @EJB
+    private productBeanLocal productBean;
     
     public String getProductName() {
         return productName;
@@ -45,32 +51,24 @@ public class showProduct {
         this.productId = productId;
     }
     
+    //Method to get product by name
     public List<Product> getProductByName() {
-        // create named query and set parameter
-        Query query = em.createNamedQuery("Product.findByDescription")
-                .setParameter("description", productName);
-        // return query result
-        return query.getResultList();
+      List<Product> listProduct= productBean.getProductByName(productName);
+      return listProduct;
     }
 
+    //Method to get product by Id
     public List<Product> getProductByID() {
-
-        // create named query and set parameter
-        Query query = em.createNamedQuery("Product.findByProductId")
-                .setParameter("productId", productId);
-        // return query result
-        return query.getResultList();
+    List<Product> listProduct= productBean.getProductByID(productId);
+      return listProduct;
     }
     
-   
+    //Method to get All product
     public List<Product> getAllProducts() {
-
-        // create named query and set parameter
-        Query query = em.createNamedQuery("Product.findAll");
-        // return query result
-        return query.getResultList();
+    List<Product> listProduct= productBean.getAllProducts();
+      return listProduct;
     }
-
+    
     public void persist(Object object) {
         try {
             utx.begin();
@@ -81,12 +79,7 @@ public class showProduct {
             throw new RuntimeException(e);
         }
     }
-    
-    
-    
-
-   
-    }
+}
 
    
     

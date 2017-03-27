@@ -12,21 +12,23 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import statics.post;
+
 @ManagedBean
 @SessionScoped
 public class login implements Serializable {
     
     @EJB
     private NewUserBeanLocal newUserBean;
-    public login() {
-    }
+        public login() 
+        {
+        }
     
         private String pwd;
 	private String msg;
 	private String user;
         private String userType;
         private String token;
-
+        
         public String getToken() {
             return token;
         }
@@ -61,6 +63,12 @@ public class login implements Serializable {
 
         public void setUserType(String userType) {
             this.userType = userType;
+        }
+        
+        public long userID()
+        {
+         long id = newUserBean.getUserID(user, pwd);
+         return id;
         }
         
 	//validate login

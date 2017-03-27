@@ -3,34 +3,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Main Page</title>
     </h:head>
     <h:body>
         <h:form>
-		<p>Welcome #{login.user}</p>
-                
+                <p>Welcome #{login.user}</p>&nbsp;&nbsp;<h:commandLink action="#{login.logout}" value="Logout"></h:commandLink> 
                 <br></br>
                 <br></br>
-                
-                <h:commandButton action ="#{userBean.initialize()}" value="UserInit" disabled="#{userBean.isUserExist()}"/>
-                
-                <br></br>
-                <br></br>
-                
                 <h:commandButton action ="SearchPage" value="Search Products"/>
-                
                 <br></br>
                 <br></br>
-                
+                <h:commandButton action ="currentUserDetail" value="My Profile"/>
+                <br></br>
+                <br></br>
                 <h:commandButton action="srchCstmrPage" value="Search customers"/>
-                
-                 <br></br>
-                 <br></br>
-                 
-                 <h:commandButton action="adminPanel" value="admin" />
-                 <br></br>
-                 <br></br>
-		<h:commandLink action="#{login.logout}" value="Logout"></h:commandLink>
+                <br></br>
+                <br></br> 
+                <h:commandButton action="adminPanel" value="admin" />
+                <br></br>
+                <br></br>
+		
 	</h:form>
     </h:body>
 </html>

@@ -8,18 +8,13 @@
     </h:head>
     <h:body>
         <h:form>
+            <h:commandButton action ="#{userBean.initialize()}" value="UserInit" disabled="#{userBean.isUserExist()}"/>
+        </h:form><br />
+        <h:form>
 		<h3>Sign-In</h3>
                 <br />
                 <br />
-                    Select the user type :
-                    <h:selectOneRadio>
-	                <f:selectItem itemValue="1" itemLabel="Customer" />
-	                <f:selectItem itemValue="2" itemLabel="Admin" />
-	            </h:selectOneRadio>
-                <br />
-                <h:commandButton action ="#{userBean.initialize()}" value="UserInit" disabled="#{userBean.isUserExist()}"/>
-                <br />
-		<h:outputText value="Username  " />
+                <h:outputText value="Username  " />
 		<h:inputText id="username" value="#{login.user}"></h:inputText>
                 <input type="hidden" name="tokenPass" value="#{login.getToken()}" />
 		<h:message for="username"></h:message>

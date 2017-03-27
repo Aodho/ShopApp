@@ -19,7 +19,6 @@ public RequestFilter() {
 }
 
 public void destroy() {
-    // TODO Auto-generated method stub
 }
 
 public static HttpServletRequest getRequest() {
@@ -32,7 +31,6 @@ public static HttpSession getSession() {
     HttpServletRequest request = localRequest.get();
     return (request != null) ? request.getSession() : null;
 }
-
 
 @Override
 public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

@@ -60,7 +60,7 @@
                         <h:inputText value="#{addCartBean.quantityVar1}">
                                 <f:validateLongRange minimum="0" maximum="100"/>
                         </h:inputText>
-                                    <h:commandButton action="#{addCartBean.removeFromBasket(product.description, addCartBean.quantityVar1)}" value ="Remove from Basket"/>
+                                    <h:commandButton action="#{addCartBean.removeFromBasket(product.description, addCartBean.quantityVar1)}" disabled="#{not product.available}" value ="Remove from Basket"/>
                         </h:form>    
                 </h:column>
                        
