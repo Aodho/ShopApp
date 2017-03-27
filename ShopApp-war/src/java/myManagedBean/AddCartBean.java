@@ -1,7 +1,6 @@
 package myManagedBean;
 
 import LoginPackage.SessionBean;
-import beans.ShoppingCartBeanLocal;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -10,7 +9,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
-import enterpriseBean.ShoppingCart;
+import beans.ShoppingCartLocal;
 import java.util.HashMap;
 import statics.post;
 
@@ -18,8 +17,9 @@ import statics.post;
 @SessionScoped
 public class AddCartBean implements Serializable {
 
-    @EJB
-    private ShoppingCartBeanLocal shoppingCartBean;
+    /**
+     * Creates a new instance of AddCartBean
+     */
     public AddCartBean() {
     }
     
@@ -38,30 +38,49 @@ public class AddCartBean implements Serializable {
         return quantityVar;
     }
 
-    public void addToBasket(String pName, int quantityVar) {
+    public void setQuantityVar(int quantityVar) {
+        this.quantityVar = quantityVar;
+    }
 
-        shoppingCartBean.removeItem(pName, quantityVar);
+    private String order = "";
+    @EJB
+    ShoppingCartLocal cart;
+    public void addToBasket(String pName, int quantityVar) {
+        
+        cart.addItem(pName, quantityVar);
+        System.out.println("Product Name : " + pName + " Quantity : " + quantityVar);
+        this.quantityVar = 0;
+    }
+
+    public void removeFromBasket(String pName, int quantityVar) {
+
+        cart.removeItem(pName, quantityVar);
     }
     
     public HashMap<String, Integer> getCartItems()
     {
-        return shoppingCartBean.getCartItems();
+        return cart.getCartItems();
     }
     public String checkout()
+    {   
+     
+        order = cart.getItemList().replace("<br>", "");
+        cart.checkout();
+        return "checkout";
+      
+    }
 
     public String cancel() {
-        shoppingCartBean.cancel();
+        cart.cancel();
         return "cancel";
     }
 
-
     public String getItemList() {
-        String content = shoppingCartBean.getItemList();
+        String content = cart.getItemList();
         return content.replace("<br>", "");
     }
 
     public String index() {
-
         FacesContext.getCurrentInstance().getExternalContext().
                 invalidateSession();
         return "admin";

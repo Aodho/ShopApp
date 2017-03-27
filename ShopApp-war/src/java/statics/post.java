@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
 public class post 
 {
     static String token;
@@ -45,6 +46,7 @@ public class post
     }
      public  String getHiddenFromSession()
     {
+	 //  HttpSession session1= request.getSession(false);
           return null;	
     }
      public static String FetchSessionAttributes(String attribut)

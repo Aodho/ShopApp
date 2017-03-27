@@ -9,9 +9,10 @@
     <class>Ent.Product</class>
     <class>Ent.ProductCode</class>
     <class>Ent.PurchaseOrder</class>
+    <class>Ent.users</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
     </properties>
   </persistence-unit>
 </persistence>

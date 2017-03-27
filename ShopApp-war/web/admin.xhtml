@@ -9,7 +9,10 @@
         <h:form>
 		<p>Welcome #{login.user}</p>
                 
-               
+                <br></br>
+                <br></br>
+                
+                <h:commandButton action ="#{userBean.initialize()}" value="UserInit" disabled="#{userBean.isUserExist()}"/>
                 
                 <br></br>
                 <br></br>
@@ -23,6 +26,8 @@
                 
                  <br></br>
                  <br></br>
+                 
+                 <h:commandButton action="adminPanel" value="admin" />
                  <br></br>
                  <br></br>
 		<h:commandLink action="#{login.logout}" value="Logout"></h:commandLink>

@@ -28,6 +28,9 @@ public class adminPanelHandler {
     @EJB
     private productBeanLocal productBean;
 
+    /**
+     * Creates a new instance of adminPanelHandler
+     */
      public String getActionMessage() {
         return actionMessage;
     }
@@ -153,6 +156,7 @@ public class adminPanelHandler {
     }
     public adminPanelHandler()
     {
+      //  productBean.addProduct(productTitle, productQuantity);
     }
     
 }

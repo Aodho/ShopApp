@@ -11,5 +11,6 @@ public interface ShoppingCartBeanLocal
     public String checkout();
     public void cancel();
     public String getItemList(); 
-    public HashMap<String, Integer> getCartItems();   
+    public HashMap<String, Integer> getCartItems();
+    
 }

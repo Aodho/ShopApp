@@ -33,7 +33,6 @@ public class DiscountCode implements Serializable {
     @Size(min = 1, max = 1)
     @Column(name = "DISCOUNT_CODE")
     private String discountCode;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "RATE")
     private BigDecimal rate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "discountCode")
@@ -80,7 +79,6 @@ public class DiscountCode implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof DiscountCode)) {
             return false;
         }

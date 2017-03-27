@@ -21,9 +21,6 @@ public class showCustomer {
     private EntityManager em;
     @Resource
     private javax.transaction.UserTransaction utx;
-
-    
-
     
     
     private String custName;

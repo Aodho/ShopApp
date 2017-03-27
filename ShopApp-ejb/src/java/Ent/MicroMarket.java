@@ -34,7 +34,6 @@ public class MicroMarket implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "ZIP_CODE")
     private String zipCode;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "RADIUS")
     private Double radius;
     @Column(name = "AREA_LENGTH")
@@ -101,7 +100,6 @@ public class MicroMarket implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof MicroMarket)) {
             return false;
         }

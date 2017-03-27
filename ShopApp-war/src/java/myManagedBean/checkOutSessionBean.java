@@ -18,6 +18,7 @@ public class checkOutSessionBean {
         productOrders = cartItems;
         if(checkIfValidOrder())
         {
+            //valid order so update the DB
             updateDB();
             logFile = new Logging(orders, false, true);
             return true;
@@ -52,6 +53,7 @@ public class checkOutSessionBean {
     
     public boolean checkIfValidOrder()
     {
+        //Need to query DB to see if the order can be completed
         boolean validOrder;
         
         validOrder = true;

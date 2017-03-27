@@ -17,7 +17,9 @@ private static ThreadLocal<HttpServletRequest> localRequest = new ThreadLocal<Ht
 
 public RequestFilter() {
 }
+
 public void destroy() {
+    // TODO Auto-generated method stub
 }
 
 public static HttpServletRequest getRequest() {
@@ -31,9 +33,9 @@ public static HttpSession getSession() {
     return (request != null) ? request.getSession() : null;
 }
 
+
 @Override
 public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-    // pass the request along the filter chain
     chain.doFilter(request, response);
 
     if (request instanceof HttpServletRequest) {
@@ -47,6 +49,7 @@ public void doFilter(ServletRequest request, ServletResponse response, FilterCha
         localRequest.remove();
     }
 }
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

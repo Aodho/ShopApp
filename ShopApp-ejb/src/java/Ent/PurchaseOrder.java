@@ -39,7 +39,6 @@ public class PurchaseOrder implements Serializable {
     private Integer orderNum;
     @Column(name = "QUANTITY")
     private Short quantity;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "SHIPPING_COST")
     private BigDecimal shippingCost;
     @Column(name = "SALES_DATE")
@@ -138,7 +137,6 @@ public class PurchaseOrder implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof PurchaseOrder)) {
             return false;
         }

@@ -10,7 +10,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
 @Stateless
 public class productBean implements productBeanLocal
 {
@@ -19,7 +18,6 @@ public class productBean implements productBeanLocal
     private EntityManager em;
 
    
-    //Admin Add Product Functionality
     @Override
     public void addProduct(String title, String amount,String cost)
     {
@@ -45,7 +43,6 @@ public class productBean implements productBeanLocal
         em.persist(pr); 
         
     }
-    ////Admin Remove Product Functionality
     @Override
     public boolean removeProduct(String title) {
        Query q= em.createNamedQuery("Product.findByDescription");
@@ -63,7 +60,6 @@ public class productBean implements productBeanLocal
           return true;
         }
     }
-    //Admin Increment Product Quantity Functionality
      @Override
     public boolean increment(String title,String amount) 
     {
@@ -86,8 +82,7 @@ public class productBean implements productBeanLocal
         }
         
     }
-    
-    //Admin Decrement Product Quantity Functionality
+
     @Override
     public boolean decrement(String title,String amount)
     {
