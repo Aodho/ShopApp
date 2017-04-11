@@ -3,16 +3,16 @@
     <type>org.netbeans.modules.j2ee.earproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/j2ee-earproject/2">
-            <name>ShopApp</name>
+            <name>GROUP16</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries/>
             <web-module-additional-libraries>
                 <library>
-                    <file>${reference.ShopApp-war.dist-ear}</file>
+                    <file>${reference.GROUP16ShopApp-war.dist-ear}</file>
                     <path-in-war>/</path-in-war>
                 </library>
                 <library>
-                    <file>${reference.ShopApp-ejb.dist-ear}</file>
+                    <file>${reference.GROUP16ShopApp-ejb.dist-ear}</file>
                     <path-in-war>/</path-in-war>
                 </library>
             </web-module-additional-libraries>
@@ -22,7 +22,7 @@
         </libraries>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
-                <foreign-project>ShopApp-ejb</foreign-project>
+                <foreign-project>GROUP16ShopApp-ejb</foreign-project>
                 <artifact-type>j2ee_ear_archive</artifact-type>
                 <script>build.xml</script>
                 <target>dist-ear</target>
@@ -30,7 +30,7 @@
                 <id>dist-ear</id>
             </reference>
             <reference>
-                <foreign-project>ShopApp-war</foreign-project>
+                <foreign-project>GROUP16ShopApp-war</foreign-project>
                 <artifact-type>j2ee_ear_archive</artifact-type>
                 <script>build.xml</script>
                 <target>dist-ear</target>
