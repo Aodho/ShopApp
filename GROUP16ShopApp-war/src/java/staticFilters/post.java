@@ -24,21 +24,22 @@ public class post
         return token;
     }
     
-    public static void postRedirect(String url){
+    public static void postErrorRedirect(String url){
        
         FacesContext context = FacesContext.getCurrentInstance();
-        String redirectUrl = url;
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        String ErrorRedirect = url;
+        ExternalContext exCon = FacesContext.getCurrentInstance().getExternalContext();
 
         try {
-                ec.redirect(redirectUrl);
+                exCon.redirect(ErrorRedirect);
             }catch (IOException e) {
                 e.printStackTrace();
                 FacesMessage message = new FacesMessage(e.getMessage());
                 context.addMessage(null, message);
             }   
     }
-    
+ 
+           
     public static void generateToken(){
        post.token= (int) (Math.random()*50000005)+1+"";
     }
@@ -52,20 +53,20 @@ public class post
     public static String FetchSessionAttributes(String attribut){
          HttpSession session = RequestFilter.getSession();
          HttpServletRequest req = RequestFilter.getRequest(); 
-         String atribute = (String) session.getAttribute("token");
-         return atribute;     
+         String attr = (String) session.getAttribute("token");
+         return attr;     
     }
-    
+
     public  String getHiddenFromSession(){
           return null;	
     }
-    public static String escapeString(String s){
-       if(s.contains("<"))
+    public static String escapeString(String escape){
+       if(escape.contains("<"))
        {
-           s = s.replaceAll("<", "&lt");
-           s = s.replaceAll(">", "&gt");
+           escape = escape.replaceAll("<", "&lt");
+           escape = escape.replaceAll(">", "&gt");
        }
-       return s;
+       return escape;
     }
     
 }

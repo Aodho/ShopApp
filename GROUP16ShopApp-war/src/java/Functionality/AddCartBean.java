@@ -12,10 +12,10 @@ package Functionality;
 import ManagedBeans.ShoppingCartBeanLocal;
 import java.io.Serializable;
 import java.util.HashMap;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
 
 @Named(value = "addCartBean")
@@ -29,27 +29,27 @@ public class AddCartBean implements Serializable {
     public AddCartBean() {
     }
     
-    private int quantityVar = 0;
-    private int quantityVar1 = 0;
+    private int quanCntr = 0;
+    private int quanCntr1 = 0;
 
-    //getter for quantityVar
-    public int getQuantityVar() {
-        return quantityVar;
+    //getter for quanCntr
+    public int getquanCntr() {
+        return quanCntr;
     }
 
-    //setter for quantityVar
-    public void setQuantityVar(int quantityVar) {
-        this.quantityVar = quantityVar;
+    //setter for quanCntr
+    public void setquanCntr(int quanCntr) {
+        this.quanCntr = quanCntr;
     }
        
-    //getter for quantityVar1
-    public int getQuantityVar1() {
-        return quantityVar1;
+    //getter for quanCntr1
+    public int getquanCntr1() {
+        return quanCntr1;
     }
 
-    //setter for quantityVar1
-    public void setQuantityVar1(int quantityVar1) {
-        this.quantityVar1 = quantityVar1;
+    //setter for quanCntr1
+    public void setquanCntr1(int quanCntr1) {
+        this.quanCntr1 = quanCntr1;
     }
 
     //hash map list to get cart item 
@@ -62,24 +62,24 @@ public class AddCartBean implements Serializable {
     private String order = "";
 
     //Adds new items to the shopping shoppingCartBean - quantities are taken from instance variables
-    public void addToBasket(String pName, int quantityVar) {
+    public void addToBasket(String pName, int quanCntr) {
        
         //ejb bean to add item
-        shoppingCartBean.addItem(pName, quantityVar);  
+        shoppingCartBean.addItem(pName, quanCntr);  
        
         //reset the counter 
-        this.quantityVar = 0;
+        this.quanCntr = 0;
     }
 
 	//Remove items from the shopping shoppingCartBean - quantities are taken from instance
     //variables. Note: ShoppingCart SFSB takes care of too large values
-    public void removeFromBasket(String pName, int quantityVar) {
+    public void removeFromBasket(String pName, int quanCntr) {
        
         //ejb bean to add item 
-        shoppingCartBean.removeItem(pName, quantityVar);
+        shoppingCartBean.removeItem(pName, quanCntr);
         
         //reset the counter
-        this.quantityVar1 = 0;
+        this.quanCntr1 = 0;
     }
    
     //Checkout shopping shoppingCartBean - only stores checked out items in instance

@@ -29,9 +29,9 @@ public class showProduct {
    
     //persistence for showing product
     @PersistenceContext(unitName = "Group16-warPU")
-    private EntityManager em;
+    private EntityManager eManager;
     @Resource
-    private javax.transaction.UserTransaction utx;
+    private javax.transaction.UserTransaction uTransaction;
     
     //attributes
     private String productName;
@@ -43,9 +43,9 @@ public class showProduct {
         
     public void persist(Object object) {
         try {
-            utx.begin();
-            em.persist(object);
-            utx.commit();
+            uTransaction.begin();
+            eManager.persist(object);
+            uTransaction.commit();
         } catch (Exception e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
             throw new RuntimeException(e);

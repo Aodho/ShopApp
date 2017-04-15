@@ -100,7 +100,7 @@ public class login implements Serializable {
                           session.setAttribute("type","admin");//assign the user type to the session as needs to be checked ,no user should have access to admin panel
                           session.setAttribute("token",post.getToken());
                           session.setMaxInactiveInterval(20*60);
-						  return "admin";//redirect to correct user page"admin panel
+						  return "index";//redirect to correct user page"admin panel
                       }
                 else
                 {
@@ -111,7 +111,7 @@ public class login implements Serializable {
                           session.setAttribute("token",post.getToken());
                           session.setMaxInactiveInterval(20*60);
                      
-                          return "admin";//redirect to normal user start page
+                          return "index";//redirect to normal user start page
                 }
 			
 			

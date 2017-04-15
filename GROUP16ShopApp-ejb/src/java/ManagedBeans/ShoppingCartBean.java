@@ -40,7 +40,7 @@ public class ShoppingCartBean implements ShoppingCartBeanLocal {
     private HashMap<String, Integer> items = new HashMap<>();
     
     @PersistenceContext(unitName = "Group16-ejbPU")
-    private EntityManager em;
+    private EntityManager eManager;
     private static final Logger LOGGER = Logger.getLogger(ShoppingCartBean.class.getName());
     private String userName;
     
@@ -50,7 +50,7 @@ public class ShoppingCartBean implements ShoppingCartBeanLocal {
     }
     
     public void persist(Object object) {
-        em.persist(object);
+        eManager.persist(object);
     }
     
     @Override
@@ -189,9 +189,9 @@ public class ShoppingCartBean implements ShoppingCartBeanLocal {
         while (it.hasNext()) 
         {
             HashMap.Entry pair = (HashMap.Entry)it.next();
-            Query q = em.createNamedQuery("Product.findByDescription");
-            q.setParameter("description", pair.getKey());
-            List<Product> isin = q.getResultList();
+            Query qry = eManager.createNamedQuery("Product.findByDescription");
+            qry.setParameter("description", pair.getKey());
+            List<Product> isin = qry.getResultList();
             if(isin.get(0).getDescription().equals(pair.getKey()))
             {
                 int orderQty = Integer.parseInt(pair.getValue().toString());
@@ -220,10 +220,10 @@ public class ShoppingCartBean implements ShoppingCartBeanLocal {
     @Override
     public boolean decrement(String title, String amount)
     {      
-        Query q = em.createNamedQuery("Product.findByDescription");
-        q.setParameter("description", title);
-        List <Product> isin = q.getResultList();
-        Product prd = isin.get(0);
+        Query qry = eManager.createNamedQuery("Product.findByDescription");
+        qry.setParameter("description", title);
+        List <Product> isin = qry.getResultList();
+        Product prod = isin.get(0);
         int am = Integer.parseInt(amount);
         if(isin.isEmpty())
         {
@@ -231,16 +231,16 @@ public class ShoppingCartBean implements ShoppingCartBeanLocal {
         }
         else
         { 
-            if(prd.getQuantityOnHand() <= am)
+            if(prod.getQuantityOnHand() <= am)
             {
-                prd.setQuantityOnHand(0);
-                em.persist(prd);
+                prod.setQuantityOnHand(0);
+                eManager.persist(prod);
                 return true;
             }
-            if(prd.getQuantityOnHand() > 0)
+            if(prod.getQuantityOnHand() > 0)
             {
-                prd.setQuantityOnHand(prd.getQuantityOnHand() - am);
-                em.persist(prd);
+                prod.setQuantityOnHand(prod.getQuantityOnHand() - am);
+                eManager.persist(prod);
                 return true;
             }
             return true;
@@ -251,7 +251,7 @@ public class ShoppingCartBean implements ShoppingCartBeanLocal {
     {
          try
         {
-         Query qry = em.createNamedQuery("PurchaseOrder.getHighestPurchaseOrderID");
+         Query qry =eManager.createNamedQuery("PurchaseOrder.getHighestPurchaseOrderID");
         int id=(int) qry.getSingleResult()+1;
         
         short value = qty > Short.MAX_VALUE ? Short.MAX_VALUE : qty < Short.MIN_VALUE ? Short.MIN_VALUE : (short)qty;
@@ -274,7 +274,7 @@ public class ShoppingCartBean implements ShoppingCartBeanLocal {
         por.setShippingDate(dt);
         por.setShippingCost(bValue);
         
-        em.persist(por);     
+        eManager.persist(por);     
         
         System.out.println("purchase order added");
         }
@@ -289,13 +289,13 @@ public class ShoppingCartBean implements ShoppingCartBeanLocal {
     public void createPOrder(String desc, int qty)
     {
         NewUserBean nub = new NewUserBean();
-        Query qry = em.createNamedQuery("Product.findByDescription");
+        Query qry = eManager.createNamedQuery("Product.findByDescription");
         qry.setParameter("description", desc);
         List <Product> isin = qry.getResultList();
         Product pro = isin.get(0);
         long temp = 101;
         int pid = pro.getProductId();
-        em.persist(pro);       
+        eManager.persist(pro);       
         createPurchaseOrder(temp, pid, qty);
         
     }

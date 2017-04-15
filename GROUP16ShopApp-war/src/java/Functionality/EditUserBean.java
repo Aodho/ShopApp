@@ -9,13 +9,13 @@
  */
 package Functionality;
 
-import ManagedBeans.NewUserBeanLocal;
 import Ent.USERTABLE;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import java.io.Serializable;
 import Login.XssFilter;
+import ManagedBeans.NewUserBeanLocal;
 
 @Named(value = "editUserBean")
 @SessionScoped

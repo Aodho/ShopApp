@@ -20,12 +20,12 @@ import staticFilters.post;
 @ManagedBean
 @SessionScoped
 public class adminPanelHandler {
+    String actionMessage;
+    String cost;
+    String passedToken;
     String productTitle;
     String productQuantity;
-    String cost;
-    String actionMessage;
     String sessionToken;
-    String passedToken;
 
     @EJB
     private productBeanLocal productBean;
@@ -77,7 +77,7 @@ public class adminPanelHandler {
             this.actionMessage="Product: "+this.productTitle+" Quantity:"+this.productQuantity+" Succsefuly added to DB";
        }
        else 
-           post.postRedirect("./error.xhtml");//if missmathc in the tokens redirect do error page and accses is forbiden
+           post.postErrorRedirect("./error.xhtml");//if missmathc in the tokens redirect do error page and accses is forbiden
    }
    
    public void removeProduct(){
@@ -95,7 +95,7 @@ public class adminPanelHandler {
             }
        }
       else{
-           post.postRedirect("./error.xhtml");   
+           post.postErrorRedirect("./error.xhtml");   
       }     
    }
    
@@ -115,7 +115,7 @@ public class adminPanelHandler {
             }
 	}
        else{
-            post.postRedirect("./error.xhtml"); 
+            post.postErrorRedirect("./error.xhtml"); 
             }
    }
    
@@ -133,16 +133,17 @@ public class adminPanelHandler {
 	}
        }
        else{
-            post.postRedirect("./error.xhtml");
+            post.postErrorRedirect("./error.xhtml");
 	}
    }
    
     public void logOut(){}
+    
     public void adminAcsses()
     {
         String userType=SessionBean.getUserType();
         if(!userType.equalsIgnoreCase("admin")){
-            post.postRedirect("./error.xhtml");
+            post.postErrorRedirect("./error.xhtml");
         }
     }
     public adminPanelHandler(){}

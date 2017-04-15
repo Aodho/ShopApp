@@ -22,7 +22,7 @@ import javax.persistence.Query;
 @Stateless
 public class NewUserBean implements NewUserBeanLocal {
     @PersistenceContext(unitName = "Group16-ejbPU")
-    private EntityManager em;
+    private EntityManager eManager;
     //User name 
     private String userName;
     //user ID
@@ -37,7 +37,7 @@ public class NewUserBean implements NewUserBeanLocal {
     public boolean validate(String user,String pwd)
     {
         // create named query and set parameter
-        Query query = em.createNamedQuery("USERTABLE.loginValidate");
+        Query query = eManager.createNamedQuery("USERTABLE.loginValidate");
         query.setParameter("username", user);
         query.setParameter("password", pwd);
         if((long)query.getSingleResult() > 0)
@@ -85,7 +85,7 @@ public class NewUserBean implements NewUserBeanLocal {
     @Override
     public boolean isCustomerExist() {
         // create named query and set parameter
-        Query query = em.createNamedQuery("USERTABLE.isUserExists").setParameter("username", "Joe");
+        Query query = eManager.createNamedQuery("USERTABLE.isUserExists").setParameter("username", "Joe");
         // return query result
         if((long)query.getSingleResult() > 0)
         {
@@ -99,7 +99,7 @@ public class NewUserBean implements NewUserBeanLocal {
     public long getUserID(String user,String pwd)
     {
         //create Query
-        Query query = em.createNamedQuery("USERTABLE.getUserID");
+        Query query = eManager.createNamedQuery("USERTABLE.getUserID");
         query.setParameter("username", user);
         query.setParameter("password", pwd);
         //Execute Query
@@ -114,7 +114,7 @@ public class NewUserBean implements NewUserBeanLocal {
     public boolean checkRights(String user,String pwd)
     {
         // create named query and set parameter
-        Query query = em.createNamedQuery("USERTABLE.loginValidate2");
+        Query query = eManager.createNamedQuery("USERTABLE.loginValidate2");
         query.setParameter("username", user);
 		query.setParameter("password", pwd);
         query.setParameter("usertype", "admin");
@@ -128,14 +128,14 @@ public class NewUserBean implements NewUserBeanLocal {
 	
     //used to persist objects
     public void persist(Object object) {
-        em.persist(object);
+        eManager.persist(object);
     }
     	//return entire list of customers
     @Override
     public List<USERTABLE> getAllCustomer()
     {
         // create named query and set parameter
-        Query query = em.createNamedQuery("USERTABLE.findAllCustomer");
+        Query query = eManager.createNamedQuery("USERTABLE.findAllCustomer");
         query.setParameter("usertype", "customer");
         //execute query
         List<USERTABLE> result = query.getResultList();
@@ -147,7 +147,7 @@ public class NewUserBean implements NewUserBeanLocal {
     public List<USERTABLE> getCurrentUserDetails(long id) {
 
         // create named query and set parameter
-        Query query = em.createNamedQuery("USERTABLE.findByUserId")
+        Query query = eManager.createNamedQuery("USERTABLE.findByUserId")
                 .setParameter("uid", id);
         //Query execute
         List<USERTABLE> result = query.getResultList();
@@ -159,7 +159,7 @@ public class NewUserBean implements NewUserBeanLocal {
     public List<USERTABLE> getCustomerListByName(String name)
     {
         // create named query and set parameter
-        Query query = em.createNamedQuery("USERTABLE.findByCustomerName");
+        Query query = eManager.createNamedQuery("USERTABLE.findByCustomerName");
         query.setParameter("username", name);
         query.setParameter("usertype", "customer");
         //Execute query
@@ -172,7 +172,7 @@ public class NewUserBean implements NewUserBeanLocal {
     public List<USERTABLE> getCustomerListByID(long id)
     {
         // create named query and set parameter
-        Query query = em.createNamedQuery("USERTABLE.findByCustomerId");
+        Query query = eManager.createNamedQuery("USERTABLE.findByCustomerId");
         query.setParameter("uid", id);
         query.setParameter("usertype", "customer");
         //execute query
@@ -184,7 +184,7 @@ public class NewUserBean implements NewUserBeanLocal {
     public boolean update(long id, String username, String address, String message)
     {
         //create named query and set parameter
-        Query qry= em.createNamedQuery("USERTABLE.findByUserId");
+        Query qry= eManager.createNamedQuery("USERTABLE.findByUserId");
         qry.setParameter("uid", id);
         //execute query
         List <USERTABLE> isin=qry.getResultList();
@@ -200,7 +200,7 @@ public class NewUserBean implements NewUserBeanLocal {
             usr.setUsername(username);
             usr.setAddress(address);
             usr.setMessage(message);
-            em.persist(usr);
+            eManager.persist(usr);
           
           return true;
         }

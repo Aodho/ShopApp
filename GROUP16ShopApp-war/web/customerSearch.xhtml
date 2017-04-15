@@ -21,14 +21,14 @@
                 <br />
                 <h:inputText id="username" value="#{userBean.username}"/>
                 <br/>
-                <h:commandButton action="customerNameResult" value="Show by customer name"/>
+                <h:commandButton action="showCustomerByName" value="Show by customer name"/>
                 <br />
                 
                 Enter customer ID: 
                 <br />
                 <h:inputText id="uid" value="#{userBean.uid}"/>
                 <br/>
-                <h:commandButton action="customerIdResult" value="Show by customer ID"/>
+                <h:commandButton action="showCustomerById" value="Show by customer ID"/>
                 <br />
                 
                 Show All Customer :
@@ -37,7 +37,7 @@
                 <br />
                 
                 <br />
-                <h:commandButton action="admin" value="Back"/>
+                <h:commandButton action="index" value="Back"/>
                 
             </h:panelGrid>
         </h:form>

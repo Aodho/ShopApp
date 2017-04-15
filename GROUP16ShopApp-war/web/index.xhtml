@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Main Page</title>
         <link rel="stylesheet" type="text/css" href="style.css"></link>
     </h:head>
     <h:body>
@@ -13,10 +13,24 @@
             <div id="navWrap">
             </div>
         </div>
-      <h:form>
-     <h:commandButton action="adminPanel" value="admin" />
-     </h:form>
-        Hello from Facelets
+        <h:form>
+                <p>Welcome #{login.user}</p>&nbsp;&nbsp;<h:commandButton action="#{login.logout}" value="Logout"></h:commandButton> 
+                <br></br>
+                <br></br>
+                <h:commandButton action ="productSearch" value="Search Products"/>
+                <br></br>
+                <br></br>
+                <h:commandButton action ="userDetail" value="My Profile"/>
+                <br></br>
+                <br></br>
+                <h:commandButton action="customerSearch" value="Search customers"/>
+                <br></br>
+                <br></br> 
+                <h:commandButton action="admin" value="admin Page" />
+                <br></br>
+                <br></br>
+		
+	</h:form>
     </h:body>
 </html>
 

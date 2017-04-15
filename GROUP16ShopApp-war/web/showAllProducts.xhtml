@@ -21,7 +21,7 @@
                                              value ="Checkout"/>
                         <h:commandButton action="#{addCartBean.cancel()}" 
                                              value ="Cancel"/>
-            <h:commandButton action="SearchPage" value="Back to Start"/>
+            <h:commandButton action="productSearch" value="Back to Start"/>
         </h:form><br /><br />
         <h3>
             <h:dataTable value="#{showProduct.getAllProducts()}" 
@@ -54,20 +54,20 @@
                 <h:column>
                     <f:facet name="header">Enter Quantity Required</f:facet>
                     <h:form>
-                        <h:inputText value="#{addCartBean.quantityVar}">
+                        <h:inputText value="#{addCartBean.quanCntr}">
                                 <f:validateLongRange minimum="0" maximum="100"/>
                         </h:inputText>
-                        <h:commandButton value="Add To Cart" action="#{addCartBean.addToBasket(product.description, addCartBean.quantityVar)}" disabled="#{not product.available}"></h:commandButton>
+                        <h:commandButton value="Add To Cart" action="#{addCartBean.addToBasket(product.description, addCartBean.quanCntr)}" disabled="#{not product.available}"></h:commandButton>
                     </h:form>    
                 </h:column>
                         
                 <h:column>
                     <f:facet name="header">Enter Quantity To Remove</f:facet>
                         <h:form>
-                        <h:inputText value="#{addCartBean.quantityVar1}">
+                        <h:inputText value="#{addCartBean.quanCntr1}">
                                 <f:validateLongRange minimum="0" maximum="100"/>
                         </h:inputText>
-                                    <h:commandButton action="#{addCartBean.removeFromBasket(product.description, addCartBean.quantityVar1)}" disabled="#{not product.available}" value ="Remove from Basket"/>
+                                    <h:commandButton action="#{addCartBean.removeFromBasket(product.description, addCartBean.quanCntr1)}" disabled="#{not product.available}" value ="Remove from Basket"/>
                         </h:form>    
                 </h:column>
                        

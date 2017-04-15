@@ -4,7 +4,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>User Details</title>
+        <title>Facelet Title</title>
         <link rel="stylesheet" type="text/css" href="style.css"></link>
     </h:head>
     <h:body>
@@ -14,36 +14,36 @@
             <div id="navWrap">
             </div>
         </div>
+        <h1>List all customers by ID #{userBean.uid}</h1>
         <h3>
-            <h:dataTable value="#{userBean.getCurrentUserDetail(login.userID())}" 
-                         var="user" border="1" cellpadding="10">
+            <h:dataTable value="#{userBean.getCustomerListByID(userBean.uid)}" 
+                         var="customer" border="1" cellpadding="10">
                 <h:column>
-                    <f:facet name="header">ID's</f:facet>
-                        #{user.id}
+                    <f:facet name="header">ID</f:facet>
+                        #{customer.id}
                 </h:column>
                 
                 <h:column>
                     <f:facet name="header">Name</f:facet>
-                        #{user.username}
+                        #{customer.username}
                 </h:column>
                 
                 <h:column>
                     <f:facet name="header">Address</f:facet>
-                        #{user.address}
+                        #{customer.address}
                 </h:column>
                 
                 <h:column>
                     <f:facet name="header">Message</f:facet>
-                        #{user.message}
+                        #{customer.message}
                 </h:column>
+               
             </h:dataTable>
+            
         </h3>
-        
-        <br/>
+        <br/><br/>
         <h:form>
-            <h:commandButton action="admin" value="Back"/>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
-            <h:commandButton action="userEditPage" value="Edit My Profile"/>
+            <h:commandButton action="customerSearch" value="Back to Start"/>
         </h:form>
     </h:body>
 </html>

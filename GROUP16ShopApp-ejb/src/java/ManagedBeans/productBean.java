@@ -34,22 +34,22 @@ public class productBean implements productBeanLocal
     private JMSContext context;
     
     @PersistenceContext(unitName = "Group16-ejbPU")
-    private EntityManager em;
+    private EntityManager eManager;
     private static final Logger LOGGER = Logger.getLogger(productBean.class.getName());
           
     //used to persist objects
     public void persist(Object object) {
-        em.persist(object);
+        eManager.persist(object);
     }
 
     public void persist1(Object object) {
-        em.persist(object);
+        eManager.persist(object);
     }      
     //Admin Increment Product Quantity Functionality
      @Override
     public boolean increment(String title,String amount) 
     {
-        Query qry= em.createNamedQuery("Product.findByDescription");
+        Query qry = eManager.createNamedQuery("Product.findByDescription");
         qry.setParameter("description", title);
         List <Product> isin=qry.getResultList();
 	//return false if it doesn't exist
@@ -62,9 +62,9 @@ public class productBean implements productBeanLocal
         {  
             int am=Integer.parseInt(amount);
             int currentAm=isin.get(0).getQuantityOnHand();
-            Product p=isin.get(0);
-            p.setQuantityOnHand(currentAm + am);
-            em.persist(p);
+            Product prod = isin.get(0);
+            prod.setQuantityOnHand(currentAm + am);
+            eManager.persist(prod);
           
           return true;
         }
@@ -75,10 +75,10 @@ public class productBean implements productBeanLocal
     @Override
     public boolean decrement(String title,String amount)
     {      
-        Query q= em.createNamedQuery("Product.findByDescription");
-        q.setParameter("description", title);
-        List <Product> isin=q.getResultList();
-        Product p=isin.get(0);
+        Query qry = eManager.createNamedQuery("Product.findByDescription");
+        qry.setParameter("description", title);
+        List <Product> isin=qry.getResultList();
+        Product prod =isin.get(0);
         int am=Integer.parseInt(amount);
 	//return false if it doesn't exist
         if(isin.isEmpty())
@@ -88,17 +88,17 @@ public class productBean implements productBeanLocal
         else
         { 
              //decrement amount  is greater than the amount of product set the amount of product to 0
-            if(p.getQuantityOnHand()<= am)
+            if(prod.getQuantityOnHand()<= am)
             {
-                p.setQuantityOnHand(0);
-                em.persist(p);
+                prod.setQuantityOnHand(0);
+                eManager.persist(prod);
                 return true;
             }		
             //decrement amount  is less than the amount of product take the decrement amount from  the amount  of product
-            if(p.getQuantityOnHand()>0)
+            if(prod.getQuantityOnHand()>0)
             {
-                p.setQuantityOnHand(p.getQuantityOnHand()- am);
-                em.persist(p);
+                prod.setQuantityOnHand(prod.getQuantityOnHand()- am);
+                eManager.persist(prod);
                 return true;
             }
             return true;
@@ -109,23 +109,23 @@ public class productBean implements productBeanLocal
     @Override
     public void addProduct(String title, String amount, String cost)
     {
-        Query q= em.createNamedQuery("Product.getHighestProductId");
+        Query qry= eManager.createNamedQuery("Product.getHighestProductId");
 	//add 1 to the highest id
-        int id=(int) q.getSingleResult()+1;
-        Product pr=new Product();
+        int id=(int) qry.getSingleResult()+1;
+        Product prod=new Product();
         Manufacturer m=new Manufacturer();   
         m.setManufacturerId(998899);
         BigDecimal bigDecimalValue= new BigDecimal(cost);
         
-        pr.setDescription(title);
-        pr.setProductId(id);
-        pr.setQuantityOnHand(Integer.parseInt(amount));
-        pr.setMarkup(BigDecimal.ZERO);
-        pr.setManufacturerId(m);
-        pr.setPurchaseCost(bigDecimalValue);
-        pr.setAvailable("true");
+        prod.setDescription(title);
+        prod.setProductId(id);
+        prod.setQuantityOnHand(Integer.parseInt(amount));
+        prod.setMarkup(BigDecimal.ZERO);
+        prod.setManufacturerId(m);
+        prod.setPurchaseCost(bigDecimalValue);
+        prod.setAvailable("true");
         writeToLogFile("admin", "Added", title, amount);
-        em.persist(pr); 
+        eManager.persist(prod); 
         
     }
     
@@ -133,7 +133,7 @@ public class productBean implements productBeanLocal
     @Override
     public boolean removeProduct(String title) 
     {
-        Query qry= em.createNamedQuery("Product.findByDescription");
+        Query qry= eManager.createNamedQuery("Product.findByDescription");
 	//query by the description of the product
         qry.setParameter("description", title);		
 	//return false if it doesn't exist
@@ -144,7 +144,7 @@ public class productBean implements productBeanLocal
 	//remove the item
         else{  
             writeToLogFile("admin", "Removed", title, "ALL");
-            em.remove(isin.get(0));
+            eManager.remove(isin.get(0));
             return true;
         }
     }
@@ -175,7 +175,7 @@ public class productBean implements productBeanLocal
     @Override
     public List<Product> getProductByName(String productname) {
         // create named query and set parameter
-        Query query = em.createNamedQuery("Product.findByDescription")
+        Query query = eManager.createNamedQuery("Product.findByDescription")
                 .setParameter("description", productname);
         // return query result
         return query.getResultList();
@@ -186,7 +186,7 @@ public class productBean implements productBeanLocal
     public List<Product> getProductByID(int productId) {
 
         // create named query and set parameter
-        Query query = em.createNamedQuery("Product.findByProductId")
+        Query query = eManager.createNamedQuery("Product.findByProductId")
                 .setParameter("productId", productId);
         // return query result
         return query.getResultList();
@@ -197,7 +197,7 @@ public class productBean implements productBeanLocal
     public List<Product> getAllProducts() {
         System.out.println("GOT TO 3");
         // create named query and set parameter
-        Query query = em.createNamedQuery("Product.findAll");
+        Query query = eManager.createNamedQuery("Product.findAll");
         // return query result
         return query.getResultList();
     }
