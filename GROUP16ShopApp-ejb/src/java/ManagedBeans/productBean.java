@@ -114,7 +114,7 @@ public class productBean implements productBeanLocal
         int id=(int) qry.getSingleResult()+1;
         Product prod=new Product();
         Manufacturer m=new Manufacturer();   
-        m.setManufacturerId(998899);
+        m.setManufacturerId(19986982);
         BigDecimal bigDecimalValue= new BigDecimal(cost);
         
         prod.setDescription(title);
